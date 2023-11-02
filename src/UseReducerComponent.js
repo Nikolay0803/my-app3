@@ -1,7 +1,6 @@
-import React, { useReducer } from 'react'
+import React, { useReducer } from "react";
 
-
-const initialState = { name: "", last: '', birthYear: "" }
+const initialState = { name: "", lastName: "", birthYear: "" };
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -14,44 +13,49 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-}
+};
+
 function UseReducerComponent() {
-  const [state, dispatch] = useReducer(reducer, initialState)
-  
-  const handleInputChange = (e) => {
-    const { name, value } = e.target 
-    dispatch({ type: `SET_${name.toUpperCase()}`, value})
-  }
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleButtonClick = (type) => {
+    dispatch({ type, value: state[type] });
+  };
+
   return (
     <div>
       <div>
         <label>Ім'я: </label>
-        <input type="text" name="name" onChange={handleInputChange} />
-        <button
-          onClick={() => dispatch({ type: "SET_NAME", value: state.name })}
-        >
-          Ім'я
-        </button>
+        <input
+          type="text"
+          name="name"
+          onChange={(e) =>
+            dispatch({ type: "SET_NAME", value: e.target.value })
+          }
+        />
+        <button onClick={() => handleButtonClick("name")}>Ім'я</button>
       </div>
       <div>
         <label>Прізвище: </label>
-        <input type="text" name="lastName" onChange={handleInputChange} />
-        <button
-          onClick={() =>
-            dispatch({ type: "SET_LAST_NAME", value: state.lastName })
+        <input
+          type="text"
+          name="lastName"
+          onChange={(e) =>
+            dispatch({ type: "SET_LAST_NAME", value: e.target.value })
           }
-        >
-          Прізвище
-        </button>
+        />
+        <button onClick={() => handleButtonClick("lastName")}>Прізвище</button>
       </div>
       <div>
         <label>Рік народження: </label>
-        <input type="text" name="birthYear" onChange={handleInputChange} />
-        <button
-          onClick={() =>
-            dispatch({ type: "SET_BIRTH_YEAR", value: state.birthYear })
+        <input
+          type="text"
+          name="birthYear"
+          onChange={(e) =>
+            dispatch({ type: "SET_BIRTH_YEAR", value: e.target.value })
           }
-        >
+        />
+        <button onClick={() => handleButtonClick("birthYear")}>
           Рік народження
         </button>
       </div>
@@ -62,4 +66,4 @@ function UseReducerComponent() {
   );
 }
 
-export default UseReducerComponent
+export default UseReducerComponent;
